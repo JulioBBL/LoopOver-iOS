@@ -17,6 +17,10 @@
 		5916D0FB21CB328B00AC12F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5916D0F921CB328B00AC12F7 /* LaunchScreen.storyboard */; };
 		5916D10621CB328B00AC12F7 /* Loop_OverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D10521CB328B00AC12F7 /* Loop_OverTests.swift */; };
 		5916D11121CB328B00AC12F7 /* Loop_OverUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D11021CB328B00AC12F7 /* Loop_OverUITests.swift */; };
+		5916D12021CB32D800AC12F7 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D11F21CB32D800AC12F7 /* Direction.swift */; };
+		5916D12221CB33C000AC12F7 /* SquareMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12121CB33C000AC12F7 /* SquareMatrix.swift */; };
+		5916D12421CB3A4D00AC12F7 /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12321CB3A4D00AC12F7 /* Movable.swift */; };
+		5916D12621CB489800AC12F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12521CB489800AC12F7 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 		5916D10C21CB328B00AC12F7 /* Loop OverUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Loop OverUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5916D11021CB328B00AC12F7 /* Loop_OverUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop_OverUITests.swift; sourceTree = "<group>"; };
 		5916D11221CB328B00AC12F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5916D11F21CB32D800AC12F7 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		5916D12121CB33C000AC12F7 /* SquareMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareMatrix.swift; sourceTree = "<group>"; };
+		5916D12321CB3A4D00AC12F7 /* Movable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
+		5916D12521CB489800AC12F7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,7 @@
 		5916D0E921CB328900AC12F7 /* Loop Over */ = {
 			isa = PBXGroup;
 			children = (
+				5916D11E21CB32CC00AC12F7 /* Model */,
 				5916D0EA21CB328900AC12F7 /* AppDelegate.swift */,
 				5916D0EC21CB328900AC12F7 /* GameScene.sks */,
 				5916D0EE21CB328900AC12F7 /* Actions.sks */,
@@ -132,6 +141,17 @@
 				5916D11221CB328B00AC12F7 /* Info.plist */,
 			);
 			path = "Loop OverUITests";
+			sourceTree = "<group>";
+		};
+		5916D11E21CB32CC00AC12F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5916D11F21CB32D800AC12F7 /* Direction.swift */,
+				5916D12121CB33C000AC12F7 /* SquareMatrix.swift */,
+				5916D12321CB3A4D00AC12F7 /* Movable.swift */,
+				5916D12521CB489800AC12F7 /* Extensions.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,9 +287,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5916D12421CB3A4D00AC12F7 /* Movable.swift in Sources */,
 				5916D0F121CB328900AC12F7 /* GameScene.swift in Sources */,
+				5916D12221CB33C000AC12F7 /* SquareMatrix.swift in Sources */,
 				5916D0F321CB328900AC12F7 /* GameViewController.swift in Sources */,
 				5916D0EB21CB328900AC12F7 /* AppDelegate.swift in Sources */,
+				5916D12021CB32D800AC12F7 /* Direction.swift in Sources */,
+				5916D12621CB489800AC12F7 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,7 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 524D3B9S8F;
 				INFOPLIST_FILE = "Loop Over/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,7 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 524D3B9S8F;
 				INFOPLIST_FILE = "Loop Over/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
