@@ -6,14 +6,14 @@
 //  Copyright © 2018 Julio Brazil. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 public protocol Movable {
-    func move(_ direction: Direction)
+    func move(_ direction: Direction, to newPosition: (Int, Int), completion: @escaping (Tile) -> Void)
 }
 
 extension Int: Movable {
-    public func move(_ direction: Direction) {
-        print("moved \(self) \(direction.rawValue)")
+    public func move(_ direction: Direction, to newPosition: (Int, Int), completion: @escaping (Tile) -> Void) {
+        print("moved \(self) \(direction.rawValue) to \(newPosition)")
     }
 }

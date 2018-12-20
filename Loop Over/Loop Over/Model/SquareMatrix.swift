@@ -12,6 +12,16 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
     var size: Int
     var elements: [T]
     
+    public var description: String {
+        var lines = [String]()
+        
+        for row in 0..<self.size {
+            lines.append(self.getValuesFor(row: row).description)
+        }
+        
+        return lines.joined(separator: "\n")
+    }
+    
     init(ofSize size: Int, withElements elements: [T]) {
         guard elements.count == size**2 else {
             fatalError("Expected the array of elements to have an element count of \(size), got \(elements.count) instead")
@@ -93,7 +103,7 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         return Int(distance % self.size)
     }
     
-    func moveElementIn(column: Int, row: Int, to direction: Direction) {
+    func moveElementIn(column: Int, row: Int, to direction: Direction, completion: @escaping (Tile) -> Void) {
         guard row < self.size else { fatalError("Row out of bounds") }
         guard column < self.size else { fatalError("Column out of bounds") }
         
@@ -122,24 +132,16 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         }
         
         elements.forEach { (element) in
-            element.move(direction)
+            let x = self.columnFor(element: element) ?? 0
+            let y = self.rowFor(element: element) ?? 0
+            element.move(direction, to: (x,y), completion: completion)
         }
     }
     
-    func move(element: T, to direction: Direction) {
+    func move(element: T, to direction: Direction, completion: @escaping (Tile) -> Void) {
         guard let column = self.columnFor(element: element) else { fatalError("Couldn't find elements column") }
         guard let row = rowFor(element: element) else { fatalError("Couldn't find elements row") }
         
-        self.moveElementIn(column: column, row: row, to: direction)
-    }
-    
-    public var description: String {
-        var lines = [String]()
-        
-        for row in 0..<self.size {
-            lines.append(self.getValuesFor(row: row).description)
-        }
-        
-        return lines.joined(separator: "\n")
+        self.moveElementIn(column: column, row: row, to: direction, completion: completion)
     }
 }

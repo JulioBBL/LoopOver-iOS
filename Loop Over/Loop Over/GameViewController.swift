@@ -11,7 +11,8 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-
+    @IBOutlet weak var skView: SKView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,31 +22,26 @@ class GameViewController: UIViewController {
             
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! GameScene? {
-                
-                // Copy gameplay related content over to the scene
-                sceneNode.entities = scene.entities
-                sceneNode.graphs = scene.graphs
+                sceneNode.setupGameWith(matrixSize: 3)
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
                 
                 // Present the scene
-                if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode)
-                    
-                    view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = true
-                    view.showsNodeCount = true
-                }
+                skView.presentScene(sceneNode)
+                
+                skView.ignoresSiblingOrder = true
+                
+                skView.showsFPS = true
+                skView.showsNodeCount = true
             }
         }
     }
-
+    
     override var shouldAutorotate: Bool {
         return true
     }
-
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
@@ -53,7 +49,7 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }

@@ -21,6 +21,7 @@
 		5916D12221CB33C000AC12F7 /* SquareMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12121CB33C000AC12F7 /* SquareMatrix.swift */; };
 		5916D12421CB3A4D00AC12F7 /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12321CB3A4D00AC12F7 /* Movable.swift */; };
 		5916D12621CB489800AC12F7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12521CB489800AC12F7 /* Extensions.swift */; };
+		5916D12821CB567000AC12F7 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916D12721CB567000AC12F7 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		5916D12121CB33C000AC12F7 /* SquareMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareMatrix.swift; sourceTree = "<group>"; };
 		5916D12321CB3A4D00AC12F7 /* Movable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
 		5916D12521CB489800AC12F7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5916D12721CB567000AC12F7 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				5916D12121CB33C000AC12F7 /* SquareMatrix.swift */,
 				5916D12321CB3A4D00AC12F7 /* Movable.swift */,
 				5916D12521CB489800AC12F7 /* Extensions.swift */,
+				5916D12721CB567000AC12F7 /* Tile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				5916D12421CB3A4D00AC12F7 /* Movable.swift in Sources */,
 				5916D0F121CB328900AC12F7 /* GameScene.swift in Sources */,
 				5916D12221CB33C000AC12F7 /* SquareMatrix.swift in Sources */,
+				5916D12821CB567000AC12F7 /* Tile.swift in Sources */,
 				5916D0F321CB328900AC12F7 /* GameViewController.swift in Sources */,
 				5916D0EB21CB328900AC12F7 /* AppDelegate.swift in Sources */,
 				5916D12021CB32D800AC12F7 /* Direction.swift in Sources */,

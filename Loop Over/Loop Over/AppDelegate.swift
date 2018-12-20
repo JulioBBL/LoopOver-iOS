@@ -16,6 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+//        let matrix = SquareMatrix<Int>(ofSize: 3, withElements: [1,2,3,4,5,6,7,8,9])
+//        
+//        print(matrix)
+//        matrix.move(element: 3, to: .down)
+//        print(matrix)
+//        matrix.move(element: 3, to: .left)
+//        print(matrix)
+//        matrix.move(element: 3, to: .up)
+//        print(matrix)
+//        matrix.move(element: 3, to: .right)
+//        print(matrix)
+        
         return true
     }
 

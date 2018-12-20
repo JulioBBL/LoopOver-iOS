@@ -9,102 +9,102 @@
 import SpriteKit
 import GameplayKit
 
+//TODO: start counting time when the first interaction is made (touchesbegan)
+//TODo: flip matrix y axis
+
 class GameScene: SKScene {
+    var measurementUnit: CGFloat = 0
     
-    var entities = [GKEntity]()
-    var graphs = [String : GKGraph]()
+    var matrix: SquareMatrix<Tile>!
+    var tiles = [Tile]()
     
-    private var lastUpdateTime : TimeInterval = 0
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    var isAnimating = false
+    
+    var touchedTile: Tile?
+    var lastKnownTilePosition = CGPoint.zero
     
     override func sceneDidLoad() {
-
-        self.lastUpdateTime = 0
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+    }
+    
+    func setupGameWith(matrixSize: Int) {
+        self.measurementUnit = self.size.width / CGFloat(matrixSize)
+        self.setupTiles(totaling: matrixSize**2)
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        self.matrix = SquareMatrix<Tile>(ofSize: matrixSize, withElements: self.tiles)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
+        self.tiles.forEach { (tile) in
+            let x = self.matrix.columnFor(element: tile) ?? 0
+            let y = self.matrix.rowFor(element: tile) ?? 0
             
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
+            tile.move(.up, to: (x,y)){_ in}
         }
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
+    func setupTiles(totaling amount: Int) {
+        for i in 0..<amount {
+            let tile = Tile(labeled: "\(i)", withColor: .gray)
+            tile.measurementUnit = self.measurementUnit
+            
+            tile.size = CGSize(width: self.measurementUnit, height: self.measurementUnit)
+            
+            self.tiles.append(tile)
+            self.addChild(tile)
         }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+        guard let touch = touches.first else { return }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        let position = touch.location(in: self)
+        
+        if let tile = self.nodes(at: position).first as? Tile {
+            self.touchedTile = tile
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+        guard let touch = touches.first, let touchedTile = self.touchedTile else { return }
+        
+        let position = touch.location(in: self)
+        let halfMeasure = self.measurementUnit/2
+        
+        if !self.isAnimating, position.x > touchedTile.position.x + halfMeasure {
+            self.isAnimating = true
+            self.matrix.move(element: touchedTile, to: .right) { tile in
+                self.lastKnownTilePosition = tile.position
+                self.isAnimating = false
+            }
+        } else if !self.isAnimating, position.x < touchedTile.position.x - halfMeasure {
+            self.isAnimating = true
+            self.matrix.move(element: touchedTile, to: .left) { tile in
+                self.lastKnownTilePosition = tile.position
+                self.isAnimating = false
+            }
+        } else if !self.isAnimating, position.y > touchedTile.position.y + halfMeasure {
+            self.isAnimating = true
+            self.matrix.move(element: touchedTile, to: .down) { tile in
+                self.lastKnownTilePosition = tile.position
+                self.isAnimating = false
+            }
+        } else if !self.isAnimating, position.y < touchedTile.position.y - halfMeasure {
+            self.isAnimating = true
+            self.matrix.move(element: touchedTile, to: .up) { tile in
+                self.lastKnownTilePosition = tile.position
+                self.isAnimating = false
+            }
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        self.touchedTile = nil
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-        
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
-            self.lastUpdateTime = currentTime
-        }
-        
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
-        
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
-        }
-        
-        self.lastUpdateTime = currentTime
+        //TODO: count elapsed time
     }
 }
