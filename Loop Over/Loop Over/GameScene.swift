@@ -15,7 +15,7 @@ import GameplayKit
 class GameScene: SKScene {
     var measurementUnit: CGFloat = 0
     
-    var matrix: SquareMatrix<Tile>!
+    var matrix: SquareMatrix!
     var tiles = [Tile]()
     
     var isAnimating = false
@@ -31,7 +31,7 @@ class GameScene: SKScene {
         self.measurementUnit = self.size.width / CGFloat(matrixSize)
         self.setupTiles(totaling: matrixSize**2)
         
-        self.matrix = SquareMatrix<Tile>(ofSize: matrixSize, withElements: self.tiles)
+        self.matrix = SquareMatrix(ofSize: matrixSize, withElements: self.tiles)
         
         self.tiles.forEach { (tile) in
             let x = self.matrix.columnFor(element: tile) ?? 0

@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatable {
+public class SquareMatrix: CustomStringConvertible {
     var size: Int
-    var elements: [T]
+    var elements: [Tile]
     
     public var description: String {
         var lines = [String]()
@@ -22,7 +22,7 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         return lines.joined(separator: "\n")
     }
     
-    init(ofSize size: Int, withElements elements: [T]) {
+    init(ofSize size: Int, withElements elements: [Tile]) {
         guard elements.count == size**2 else {
             fatalError("Expected the array of elements to have an element count of \(size), got \(elements.count) instead")
         }
@@ -31,7 +31,7 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         self.elements = elements
     }
     
-    convenience init(withElements elements: [T]) {
+    convenience init(withElements elements: [Tile]) {
         let size = Int(sqrt(Double(elements.count)))
         
         guard elements.count == size**2 else {
@@ -41,7 +41,7 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         self.init(ofSize: size, withElements: elements)
     }
     
-    subscript (_ column: Int, _ row: Int) -> T {
+    subscript (_ column: Int, _ row: Int) -> Tile {
         get {
             guard row < self.size else { fatalError("Row out of bounds") }
             guard column < self.size else { fatalError("Column out of bounds") }
@@ -57,30 +57,30 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         }
     }
     
-    func getValuesFor(row: Int) -> [T] {
+    func getValuesFor(row: Int) -> [Tile] {
         guard row < self.size else { fatalError("Row out of bounds") }
         
         return Array(self.elements[(row * self.size)..<(row * self.size)+self.size])
     }
     
-    func getValuesFor(column: Int) -> [T] {
+    func getValuesFor(column: Int) -> [Tile] {
         guard column < self.size else { fatalError("Column out of bounds") }
         
-        var elements = [T]()
+        var elements = [Tile]()
         for i in 0..<self.size {
             elements.append(self[column, i])
         }
         return elements
     }
     
-    func replaceValuesIn(row: Int, with values: [T]) {
+    func replaceValuesIn(row: Int, with values: [Tile]) {
         guard row < self.size else { fatalError("Row out of bounds") }
         guard values.count == self.size else { fatalError("Amount of elements provided differs from matrix size. Expected an element count of \(self.size), got \(values.count) instead") }
         
         self.elements.replaceSubrange((row * self.size)..<(row * self.size)+self.size, with: values)
     }
     
-    func replaceValuesIn(column: Int, with values: [T]) {
+    func replaceValuesIn(column: Int, with values: [Tile]) {
         guard column < self.size else { fatalError("Row out of bounds") }
         guard values.count == self.size else { fatalError("Amount of elements provided differs from matrix size. Expected an element count of \(self.size), got \(values.count) instead") }
         
@@ -89,14 +89,14 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         }
     }
     
-    func rowFor(element: T) -> Int? {
+    func rowFor(element: Tile) -> Int? {
         guard let index = self.elements.firstIndex(of: element) else { return nil }
         let distance = self.elements.startIndex.distance(to: index)
         
         return Int(distance / self.size)
     }
     
-    func columnFor(element: T) -> Int? {
+    func columnFor(element: Tile) -> Int? {
         guard let index = self.elements.firstIndex(of: element) else { return nil }
         let distance = self.elements.startIndex.distance(to: index)
         
@@ -107,7 +107,7 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         guard row < self.size else { fatalError("Row out of bounds") }
         guard column < self.size else { fatalError("Column out of bounds") }
         
-        var elements = [T]()
+        var elements = [Tile]()
         
         switch direction.orientation {
         case .vertical:
@@ -138,10 +138,12 @@ public class SquareMatrix<T: Movable>: CustomStringConvertible where T: Equatabl
         }
     }
     
-    func move(element: T, to direction: Direction, completion: @escaping (Tile) -> Void) {
+    func move(element: Tile, to direction: Direction, completion: @escaping (Tile) -> Void) {
         guard let column = self.columnFor(element: element) else { fatalError("Couldn't find elements column") }
         guard let row = rowFor(element: element) else { fatalError("Couldn't find elements row") }
         
         self.moveElementIn(column: column, row: row, to: direction, completion: completion)
     }
+    
+    
 }

@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-public class Tile: SKSpriteNode, Movable {
+public class Tile: SKSpriteNode {
     var label: String
     var measurementUnit: CGFloat = 0
     private var labelNode: SKLabelNode
