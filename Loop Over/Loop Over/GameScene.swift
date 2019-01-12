@@ -38,6 +38,9 @@ class GameScene: SKScene {
             let y = self.matrix.rowFor(element: tile) ?? 0
             
             tile.move(.up, to: (x,y)){_ in}
+            tile.color = self.matrix.colorFor(coordinate: (x,y))
+            tile.labelNode.fontColor = .black
+            tile.labelNode.fontSize = self.measurementUnit * 0.7
         }
     }
     
@@ -58,7 +61,7 @@ class GameScene: SKScene {
         
         let position = touch.location(in: self)
         
-        if let tile = self.nodes(at: position).first as? Tile {
+        if let tile = self.nodes(at: position).first(where: { $0 is Tile }) as? Tile {
             self.touchedTile = tile
         }
     }

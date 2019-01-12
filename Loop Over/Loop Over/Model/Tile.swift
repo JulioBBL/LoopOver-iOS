@@ -11,11 +11,13 @@ import SpriteKit
 public class Tile: SKSpriteNode {
     var label: String
     var measurementUnit: CGFloat = 0
-    private var labelNode: SKLabelNode
+    var labelNode: SKLabelNode
     
     public init(labeled label: String, withColor color: UIColor = .clear) {
         self.label = label
+        
         self.labelNode = SKLabelNode(text: label)
+        self.labelNode.fontName = "Avenir-Medium"
         self.labelNode.verticalAlignmentMode = .center
         self.labelNode.horizontalAlignmentMode = .center
         

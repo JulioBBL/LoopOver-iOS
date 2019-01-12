@@ -6,7 +6,7 @@
 //  Copyright © 2018 Julio Brazil. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 public class SquareMatrix: CustomStringConvertible {
     var size: Int
@@ -145,5 +145,11 @@ public class SquareMatrix: CustomStringConvertible {
         self.moveElementIn(column: column, row: row, to: direction, completion: completion)
     }
     
-    
+    func colorFor(coordinate: (x: Int, y: Int)) -> UIColor {
+        let blue = CGFloat(coordinate.x) / CGFloat(self.size - 1)
+        let red = 1 - blue
+        let green = CGFloat(coordinate.y) / CGFloat(self.size - 1)
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+    }
 }

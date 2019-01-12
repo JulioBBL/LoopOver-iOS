@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
             
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! GameScene? {
-                sceneNode.setupGameWith(matrixSize: 3)
+                sceneNode.setupGameWith(matrixSize: 5)
                 
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFill
